@@ -21,6 +21,8 @@
 
 <?= $this->section('script'); ?>
 <script>
+    var data = <?= json_encode($data) ?>;
+
     var map = L.map('maps').setView({ lat : 0.7893, lon : 113.9213}, 5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -28,6 +30,8 @@
         attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(map);
 
-    L.marker({lat : 0.7893, lon : 113.9213}).bindPopup('Hello Indonesia').addTo(map);
+    // L.marker({lat : 0.7893, lon : 113.9213}).bindPopup('Hello Indonesia').addTo(map);
+    
+    var geojson = L.geoJson(data).addTo(map);
 </script>
 <?= $this->endSection(); ?>
