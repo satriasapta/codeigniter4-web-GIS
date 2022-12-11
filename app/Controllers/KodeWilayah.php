@@ -15,8 +15,8 @@ class KodeWilayah extends BaseController
     {
         $model = new \App\Models\KodeWilayahModel();
         $kodeWilayah = $model->findAll();
-        return view('kode-wilayah/index',[
-            'kodeWilayah'=>$kodeWilayah,
+        return view('kode-wilayah/index', [
+            'kodeWilayah' => $kodeWilayah,
         ]);
     }
 

@@ -110,7 +110,7 @@ $submit = [
     }
 
     function onEachFeature(feature, layer) { //add
-        layer.bindPopup("<h4>Kepadatan Penduduk</h4><br>" + feature.properties.Propinsi + " : " + feature.properties.nilai + "(000) ribu jiwa");
+        layer.bindPopup("<h4>Kepadatan Penduduk</h4><br>" + feature.properties.Kecamatan + " : " + feature.properties.nilai + " jiwa");
         layer.on({
             mouseover: highlightFeature, //ketika diatas wilayah
             mouseout: resetHighlight, //ketika meninggalkan wilayah
@@ -163,7 +163,7 @@ $submit = [
 
     info.update = function(props) {
         this._div.innerHTML = '<h4><?= $masterData->nama ?></h4>' + (props ?
-            '<b>' + props.Propinsi + '</b><br />' + props.nilai + ' (000) ribu jiwa' :
+            '<b>' + props.Kecamatan + '</b><br />' + props.nilai + ' jiwa' :
             'Hover di atas wilayah');
     };
 

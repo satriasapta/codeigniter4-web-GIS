@@ -10,7 +10,7 @@ class Maps extends BaseController
     {
         helper('form');
         $model = new \App\Models\DataModel();
-        $fileName = base_url("maps/prov.geojson");
+        $fileName = base_url("maps/balam.geojson");
         $file = file_get_contents($fileName);
         $file = json_decode($file);
 
