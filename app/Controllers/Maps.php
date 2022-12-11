@@ -8,6 +8,7 @@ class Maps extends BaseController
 {
     public function index()
     {
+        helper('form');
         $model = new \App\Models\DataModel();
         $fileName = base_url("maps/prov.geojson");
         $file = file_get_contents($fileName);
@@ -15,9 +16,15 @@ class Maps extends BaseController
 
         $features = $file->features;
 
+        $idMasterData = 1;
+        if($this->request->getPost())
+        {
+            $idMasterData = $this->request->getPost('master');
+        }
+
         foreach($features as $index => $feature){
             $kode_wilayah = $feature->properties->kode;
-            $data = $model->where('id_master_data',1)
+            $data = $model->where('id_master_data',$idMasterData)
                     ->where('kode_wilayah',$kode_wilayah)
                     ->first();
 
@@ -26,14 +33,22 @@ class Maps extends BaseController
             }
         };
 
-        $nilaiMax = $model->select('MAX(nilai) AS nilai')->where('id_master_data',1)->first()->nilai;
+        $nilaiMax = $model->select('MAX(nilai) AS nilai')->where('id_master_data',$idMasterData)->first()->nilai;
         $MasterDataModel = new \App\Models\MasterDataModel();
-        $masterData = $MasterDataModel->find(1);
+        $masterData = $MasterDataModel->find($idMasterData);
+        $allMasterData = $MasterDataModel->findAll();
+
+        $masterDataMenu = [];
+        foreach($allMasterData as $md){
+            $masterDataMenu[$md->id] = $md->nama;
+        }
 
         return view('maps/index',[
             'data' => $features,
             'nilaiMax'=>$nilaiMax,
-            'masterData'=> $masterData
+            'masterData'=> $masterData,
+            'masterDataMenu'=> $masterDataMenu,
+
         ]);
     }
 }
